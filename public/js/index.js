@@ -1,6 +1,6 @@
 'use strict';
 
-fetch('http://localhost:2021/about')
+fetch('/about')
     .then(response => response.json()
         .then(data => 
             {
