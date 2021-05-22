@@ -1,21 +1,26 @@
-class Routes {
-    constructor(app)
+'use strict';
+const express = require('express')
+const router = express.Router()
+
+router.get('', (req, res) => 
+{
+    res.render('index', 
     {
-        this.app = app;
+        title: req.query.title,
+    })
+})
 
-        this.app.get('', (req, res) => 
-        {
-            res.render('index', 
-                {
-                    title: 'HBS | Index',
-                });
-        });
+router.get('/about', (req, res) => 
+{
+    res.send({
+        name: 'Jonathan',
+        age: 23
+    })
+})
 
-        this.app.get('*', (req, res) => 
-        {
-            res.send('404 Page Not Found.')
-        });
-    }
-}
+router.get('*', (req,res) => 
+{
+    res.send('404 Page Not Found')
+})
 
-module.exports = Routes;
+module.exports = router

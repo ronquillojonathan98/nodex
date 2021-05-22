@@ -1,25 +1,22 @@
 'use strict';
-const { appendFileSync, writeFileSync } = require('fs');
-const path = require('path');
-const express = require('express');
-const routes = require('./routes');
-const hbs = require('hbs');
+const express = require('express')
+const path = require('path')
+const hbs = require('hbs')
+const routes = require('./routes')
 
-const app = express();
+const publicPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
 
-const publicPath = path.join(__dirname, '../public');
-const templatePath = path.join(__dirname, '../templates/views');
-const partialsPath = path.join(__dirname, '../templates/partials');
+const app = express()
 
-app.use(express.static(publicPath));
+app.use(express.static(publicPath))
+app.use(routes)
 
-app.set('view engine', 'hbs');
-app.set('views', templatePath);
-hbs.registerPartials(partialsPath);
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
 
-new routes(app);
+hbs.registerPartials(partialsPath)
 
-app.listen(2021, () => 
-{
-    console.log('Server is up, now listening on port 2021');
-});
+
+app.listen(2021, () => console.log('Listening on port 2021.'))
